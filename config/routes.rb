@@ -2,7 +2,7 @@ Pulsten::Application.routes.draw do
   # get "room/index"
 
   devise_for :users
-
+  match "/index"=>"room#index"
   root :to =>"room#index"
 
 
