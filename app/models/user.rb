@@ -9,9 +9,13 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   attr_accessible :username
   attr_accessible :userDesc
+  attr_accessible :totalscore
+
   attr_accessor :login
   attr_accessible :login
 
+  has_many :user_game
+  has_many :game,:through=>:user_game
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
