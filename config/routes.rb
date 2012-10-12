@@ -5,6 +5,9 @@ Pulsten::Application.routes.draw do
   match "/index"=>"room#index"
   root :to =>"room#index"
 
+  match "/g/singleuser"=>"room#single_user_room"
+  match "/g/multiuser"=>"room#multi_user_room"
+  match "/g/currentgame"=>"room#current_game"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
