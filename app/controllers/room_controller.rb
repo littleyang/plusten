@@ -15,8 +15,12 @@ class RoomController < ApplicationController
   end
 
   def current_game
-    #render :template=>'room/index'
-    session[:room_id] = params[:id]
-    #puts "current room session"+session[:room_id].to_s
+    render :template=>'room/current_game'
+    if params[:id]
+      session[:room_id] = params[:id]
+    end
+    if params[:type]
+      session[:type] = params[:type]
+    end
   end
 end

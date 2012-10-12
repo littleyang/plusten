@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
 
   has_many :user_game
   has_many :game,:through=>:user_game
+  has_many :single_game
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup

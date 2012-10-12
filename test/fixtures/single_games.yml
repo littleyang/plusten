@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  select_num: 1
+  score: 1
+  time: 1
+  type: 1
+
+two:
+  user_id: 1
+  select_num: 1
+  score: 1
+  time: 1
+  type: 1
