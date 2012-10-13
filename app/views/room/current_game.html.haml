@@ -1,0 +1,23 @@
+= render "share/header" 
+.container
+  .container-fluid
+    .row-fluid
+      .span7
+        =render help_show_room_kind
+      .span5
+        .box
+          %h2.title= "当前信息"
+          %ul.unstyled
+            %li
+              欢迎你，
+              %a= current_user.username
+            %li 
+              当前局数: 
+              %a 10
+            %li 
+              剩下局数: 
+              %a 10
+            %li 
+              总计得分: 
+              %a 10000
+= render "share/footer"
