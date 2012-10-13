@@ -8,21 +8,19 @@ class RoomController < ApplicationController
       format.html { render :template=>'room/multi_player' }
       format.json { render json: @rooms }
     end
-    session[:room_type]="multi_player"
+    session[:game_type]="multi_player"
   end
 
   def single_user_room
     render :template=>'room/single_player'
-    session[:room_type] = "single_palyer"
+    session[:game_type] = "single_player"
   end
 
   def current_game
     render :template=>'room/current_game'
-    if params[:id]
-      session[:room_id] = params[:id]
-    end
-    if params[:type]
-      session[:type] = params[:type]
-    end
+    puts session[:game_type]
+  end
+  def post_single
+    render :action=>"index"
   end
 end

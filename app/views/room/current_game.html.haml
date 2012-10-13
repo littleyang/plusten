@@ -3,7 +3,7 @@
   .container-fluid
     .row-fluid
       .span7
-        =render help_show_room_kind
+        =render help_show_room_kind(session[:game_type])
       .span5
         .box
           %h2.title= "当前信息"
