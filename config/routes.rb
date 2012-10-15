@@ -7,7 +7,8 @@ Pulsten::Application.routes.draw do
 
   match "/g/singleuser"=>"room#single_user_room"
   match "/g/multiuser"=>"room#multi_user_room"
-  match "/g/currentgame"=>"room#current_game"
+  match "/g/current_single_game"=>"room#current_single_game"
+  match "/g/current_multi_game"=>"room#current_multi_game"
   match "/g/post_single"=>"room#post_single"
 
   # The priority is based upon order of creation:

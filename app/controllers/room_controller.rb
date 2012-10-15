@@ -16,9 +16,14 @@ class RoomController < ApplicationController
     session[:game_type] = "single_player"
   end
 
-  def current_game
-    render :template=>'room/current_game'
-    puts session[:game_type]
+  def current_single_game
+    #render :template=>'room/current_game'
+    #@game = SingleGame.new
+    #puts session[:game_type_id]=params[:id]
+    #respond_to do |format|
+    #  format.html { render :template=>'room/current_game' }
+    #  format.json { render json: @game }
+    #end
   end
   def post_single
     render :action=>"index"
