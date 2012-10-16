@@ -13,17 +13,26 @@
               %div{:class=>"control-group"}
                 =f.label "选择一个",:class=>"control-label"
                 %div{:class=>"controls"}
-                  =radio_button "zero","0",:class=>"checkbox inline"
+                  =check_box "zero","0"
                   0
-                  =radio_button "three","3",:class=>"checkbox inline"
+                  =check_box "three","3"
                   3
-                  =radio_button "five","5",:class=>"checkbox inline"
+                  =check_box "five","5"
                   5
-                  =radio_button "seven","7",:class=>"checkbox inline"
+                  =check_box "seven","7"
                   7
               %div{:class=>"control-group"}
                 %div{ :class=>"controls pull-right"}
-                  =f.submit "提交",:class=>"btn btn-success"
+                  =f.button "提交",:class=>"btn btn-success",:id=>"post_button",:type=>"button"
+
+              %div{:id=>"notice_model",:class=>"modal hide fade"}
+                %div{:class=>"modal-header"}
+                  %h3 提示信息
+                %div{:class=>"modal-body"}
+                  %p 
+                    请耐心等待其他人选择中，请勿关闭浏览器，刷新等………谢谢
+                %div{:class=>"modal-footer",:id=>"modal-footer"}
+                  =f.button "继续",:class=>"btn btn-success",:id=>"save_data",:type=>"button"
 
       .span5
         .box

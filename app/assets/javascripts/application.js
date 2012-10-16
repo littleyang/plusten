@@ -13,4 +13,33 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require_tree .
+//= require_tree
+
+$(function(){
+  $("#zero_0").click(function(){
+    $(function(){
+      jQuery("#three_3").attr("disabled",true);
+      jQuery("#five_5").attr("disabled",true);
+      jQuery("#seven_7").attr("disabled",true);
+      jQuery("#zero_0").attr("disabled",true);
+    });
+  });
+});
+$(function(){
+  $("#post_button").click(function(){
+    var callback = arguments.callee;
+    $("#notice_model").modal({
+      backdrop:true,
+      keyboard: false,
+      show: true
+    });
+    $("#save_data").hide();
+    $("#save_data").delay(5000).show();
+  });
+});
+
+$(function(){
+  $("#save_data").click(function(){
+    alert("save successfully !");
+  });
+});
