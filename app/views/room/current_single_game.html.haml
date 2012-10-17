@@ -11,15 +11,15 @@
               %legend
                 选择你猜想的一个数字
               %div{:class=>"control-group"}
-                =f.label "选择一个",:class=>"control-label"
+                =f.label "选择一个",:class=>"control-label",:id=>"select_label",:for=>"single_game"
                 %div{:class=>"controls"}
-                  =check_box "zero","0"
+                  %input{:type=>"checkbox",:value=>"0",:id=>"zero",:class=>"checkbox inline"}
                   0
-                  =check_box "three","3"
+                  %input{:type=>"checkbox",:id=>"three",:value=>"3",:class=>"checkbox inline"}
                   3
-                  =check_box "five","5"
+                  %input{:type=>"checkbox",:id=>"five",:value=>"5",:class=>"checkbox inline"}
                   5
-                  =check_box "seven","7"
+                  %input{:type=>"checkbox",:id=>"seven",:value=>"7",:class=>"checkbox inline"}
                   7
               %div{:class=>"control-group"}
                 %div{ :class=>"controls pull-right"}
@@ -51,3 +51,4 @@
               总计得分: 
               %a 10000
 = render "share/footer"
+

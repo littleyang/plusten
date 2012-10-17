@@ -16,18 +16,19 @@
 //= require_tree
 
 $(function(){
-  $("#zero_0").click(function(){
+  var start_timer = new Date();
+  var end_timer;
+  var thought_time;
+  $("#select_num :input").click(function(){
     $(function(){
-      jQuery("#three_3").attr("disabled",true);
-      jQuery("#five_5").attr("disabled",true);
-      jQuery("#seven_7").attr("disabled",true);
-      jQuery("#zero_0").attr("disabled",true);
+      jQuery("#three").attr("disabled",true);
+      jQuery("#five").attr("disabled",true);
+      jQuery("#seven").attr("disabled",true);
+      jQuery("#zero").attr("disabled",true);
     });
   });
-});
-$(function(){
   $("#post_button").click(function(){
-    var callback = arguments.callee;
+    end_timer = new Date();
     $("#notice_model").modal({
       backdrop:true,
       keyboard: false,
@@ -36,20 +37,25 @@ $(function(){
     $("#save_data").button('loading');
     window.setTimeout(show_save_button,5000);
   });
-});
 
-function show_save_button(){
-  $("#save_data").button('reset');
-};
-
-$(function(){
   $("#save_data").click(function(){
-   var game = $("#select_num :input").val();
-   $this.ajax({
-     url: '/g/post_singl',
-     type: POST,
-     data: game
-  }).done(function(){
-    alert("message");
+    var select_num = jQuery("input[type=checkbox]:checked").val();
+    thought_time = (end_timer.getTime())-(start_timer.getTime());
+    //alert(select_num);
+    //alert(thought_time);
+
+    $.ajax({
+      url: "/g/post_single",
+      type: "POST",
+      data: {select_num:select_num,thought_time:thought_time},
+      success: function(){
+        alert("success");
+      }
+    });
   });
+
+  function show_save_button(){
+    $("#save_data").button('reset');
+  }
 });
+
