@@ -33,13 +33,23 @@ $(function(){
       keyboard: false,
       show: true
     });
-    $("#save_data").hide();
-    $("#save_data").delay(5000).show();
+    $("#save_data").button('loading');
+    window.setTimeout(show_save_button,5000);
   });
 });
 
+function show_save_button(){
+  $("#save_data").button('reset');
+};
+
 $(function(){
   $("#save_data").click(function(){
-    alert("save successfully !");
+   var game = $("#select_num :input").val();
+   $this.ajax({
+     url: '/g/post_singl',
+     type: POST,
+     data: game
+  }).done(function(){
+    alert("message");
   });
 });

@@ -26,6 +26,8 @@ class RoomController < ApplicationController
     #end
   end
   def post_single
+    @game = params[:game]
+    puts @game
     render :action=>"index"
   end
 end
