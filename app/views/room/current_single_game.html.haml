@@ -33,7 +33,28 @@
                     请耐心等待其他人选择中，请勿关闭浏览器，刷新等………谢谢
                 %div{:class=>"modal-footer",:id=>"modal-footer"}
                   =f.button "继续",:class=>"btn btn-success",:id=>"save_data",:type=>"button"
-
+              
+              %div{:id=>"result_modal",:class=>"modal hide fade"}
+                %div{:class=>"modal-header"}
+                  %h3 游戏结果计算
+                %div{:class=>"modal-body"}
+                  %p
+                    当前用户:
+                    %a=current_user.username
+                    %p 
+                      所选数字:
+                      %a{:id=>"result_num"}
+                    %p 
+                      所用时间:
+                      %a{:id=>"result_time"}
+                    %p
+                      本局得分:
+                      %a{:id=>"result_score"}
+                    %p
+                      总计分数:
+                      %a 1000000
+                %div{:class=>"modal-footer",:id=>"modal-footer"}
+                  =f.button "继续",:class=>"btn btn-success",:id=>"continue_game",:type=>"button"
       .span5
         .box
           %h2.title= "当前信息"
@@ -51,4 +72,3 @@
               总计得分: 
               %a 10000
 = render "share/footer"
-
