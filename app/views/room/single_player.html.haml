@@ -1,0 +1,17 @@
+= render "share/header"
+.container
+  .container-fluid
+    .row-fluid
+      .span7
+        .alert.alert-info
+          %p
+            %h5请选择分类
+        %p
+          = link_to "游戏A",:controller=>"room",:action=>"current_single_game",:type=>1
+        %p
+          = link_to "游戏B",:controller=>"room",:action=>"current_single_game",:type=>2
+        %p
+          = link_to "游戏C",:controller=>"room",:action=>"current_single_game",:type=>3
+      .span5
+        =render "share/sidelink"
+= render "share/footer"
