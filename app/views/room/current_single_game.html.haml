@@ -52,7 +52,7 @@
                       %a{:id=>"result_score"}
                     %p
                       总计分数:
-                      %a 1000000
+                      %a= help_show_total_score(current_user)
                 %div{:class=>"modal-footer",:id=>"modal-footer"}
                   =f.button "再接再厉",:class=>"btn btn-success",:id=>"continue_game",:type=>"button"
       .span5
@@ -64,11 +64,11 @@
               %a= current_user.username
             %li 
               当前局数: 
-              %a 10
+              %a= show_current_game_num(user_session[:game_count])
             %li 
               剩下局数: 
-              %a 10
+              %a= help_show_left_game_num(params[:type],user_session[:game_count])
             %li 
               总计得分: 
-              %a 10000
+              %a= help_show_total_score(current_user)
 = render "share/footer"

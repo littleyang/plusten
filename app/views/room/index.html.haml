@@ -5,6 +5,9 @@
       .span7
         .alert.alert-info
           %h3="请选择分类"
+        -if flash[:notice]
+          .alert.alert-error
+            %h5=flash[:notice]
         %p 
           =link_to "单人游戏",:action=>"single_user_room",:controller=>"room"
         %p

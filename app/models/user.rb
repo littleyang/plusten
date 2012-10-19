@@ -26,4 +26,12 @@ class User < ActiveRecord::Base
       where(conditions).first
     end
   end
+  def finish_game(current,total)
+    if current<total
+      return false
+    else
+      return true
+    end
+
+  end
 end

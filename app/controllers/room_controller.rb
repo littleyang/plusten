@@ -21,9 +21,16 @@ class RoomController < ApplicationController
   end
 
   def current_single_game
-    #@single_game = current_user.single_game.order("id DESC").first
-    #session[:game_type_id]=params[:type]
-    #session[:game_count]=0
+    if user_session[:game_count].nil?
+      user_session[:game_count] = 1
+    else
+      user_session[:game_count]= user_session[:game_count]+1
+    end
+    total_game_num = (Type.find_by_id(params[:type])).total_num
+    if current_user.finish_game(user_session[:game_count],total_game_num)
+      redirect_to :action=>"index",:controller=>"room"
+      flash[:notice] = " you have finish game now"
+    end
   end
   def post_single
     if request.post?
@@ -33,11 +40,10 @@ class RoomController < ApplicationController
       @single_game.time = params[:thought_time]
       @single_game.game_type = params[:type]
       @single_game.score = params[:score]
-      @single_game.current_count = (current_user.single_game).count
-      @single_game.game_total = (Type.find_by_id(params[:type])).total_num
-      puts @single_game.count
-      puts @single_game.game_total
+     # @single_game.current_count = user_session[:game_count]
+     # @single_game.game_total = (Type.find_by_id(params[:type])).total_num
       if @single_game.save!
+          puts user_session[:game_count]
           respond_to do |format|
             format.json{ render json: @single_game }
           end

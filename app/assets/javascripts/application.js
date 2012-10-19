@@ -43,26 +43,45 @@ $(function(){
     thought_time = (end_timer.getTime())-(start_timer.getTime());
     var type = getUrlParam("type");
     var result_score = caculate_score(select_num,type);
+     $("#notice_model").hide();
+     $("#result_score").append(result_score);
+     $("#result_num").append(select_num);
+     $("#result_time").append(thought_time);
+     $("#result_modal").modal({
+          backdrop: false,
+          keyboard: false,
+          show: true
+     });
+    // $.ajax({
+    //  url: "/g/post_single",
+    //  seccess: function(data){
+    //    if (data.current_count<data.game_total)
+    //      {
+    //       $("#finish_game").hide();
+    //      }else{
+    //        $("#finish_game").show();
+    //        $("#continue_game").hide();
+    //    }
+    //  }
+    // });
+  });
+
+  $("#continue_game").click(function(){
+    $("#continue_game").button('loading');
+    var select_num = jQuery("input[type=checkbox]:checked").val();
+    thought_time = (end_timer.getTime())-(start_timer.getTime());
+    var type = getUrlParam("type");
+
+    var result_score = caculate_score(select_num,type);
     $.ajax({
       url: "/g/post_single",
       type: "POST",
       data: {select_num:select_num,thought_time:thought_time,score:result_score,type:type},
       success: function(data){
-         $("#result_modal").modal({
-          backdrop: false,
-          keyboard: false,
-          show: true
-        });
-         $("#notice_model").hide();
-         $("#result_score").append(result_score);
-         $("#result_num").append(select_num);
-         $("#result_time").append(thought_time);
+        window.location.reload();
+        //$("#continue_game").button('reset');
       }
-    });
-  });
-
-  $("#continue_game").click(function(){
-    window.location.reload();
+    })
   });
 
   function show_save_button(){
