@@ -8,10 +8,10 @@ module RoomHelper
     return total
   end
   def show_current_game_num(num)
-    return num+1
+    return num
   end
   def help_show_left_game_num(type,num)
     total = (Type.find_by_id(type)).total_num
-    return total - num -1
+    return total - num
   end
 end

@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
     end
   end
   def finish_game(current,total)
-    if current<total
+    if current < total
       return false
     else
       return true
