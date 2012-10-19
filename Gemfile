@@ -10,6 +10,7 @@ gem 'devise'
 gem 'twitter-bootstrap-rails'
 gem 'slim',:require=>'slim'
 gem 'haml'
+gem 'passenger'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
