@@ -51,4 +51,19 @@ class RoomController < ApplicationController
     end
   end
 
+  def current_multi_game
+
+  end
+
+  def post_multi
+
+  end
+  def get_room_user_num
+    @room = Room.first
+    puts "get request"
+    respond_to do |format|
+      format.json { render json: @room}
+    end
+  end
+
 end
