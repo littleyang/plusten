@@ -52,18 +52,40 @@ class RoomController < ApplicationController
   end
 
   def current_multi_game
-
-  end
-
-  def post_multi
-
-  end
-  def get_room_user_num
-    @room = Room.first
-    puts "get request"
-    respond_to do |format|
-      format.json { render json: @room}
+    if user_session[:game_count].nil?
+      user_session[:game_count] = 0
     end
   end
 
+  def post_multi
+    if request.post?
+      if user_session[:game_count].nil?
+        user_session[:game_count] = 1
+      else
+        user_session[:game_count]= user_session[:game_count]+1
+      end
+      user_game = UserGame.new
+      @game = Game.new
+      @game.select_num = params[:select_num]
+      @game.time = params[:thought_time]
+      @game.current_num = user_session[:game_count]
+      @game.room = Room.find_by_id(params[:room_id])
+      user_game.user = current_user
+      user_game.game = @game
+      if user_game.save!
+        respond_to do |format|
+          format.json { render json: @game }
+        end
+      end
+    end
+  end
+  def get_room_user_num
+  end
+
+  def show_multi_game_result
+    @result = current_user.caculate_multi_game_result(roomid,user_session[:game_count])
+    respond_to do | format |
+      format.json { render json: @result }
+    end
+  end
 end

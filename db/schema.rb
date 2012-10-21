@@ -11,19 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121019030032) do
+ActiveRecord::Schema.define(:version => 20121021105226) do
 
   create_table "games", :force => true do |t|
     t.integer  "score"
     t.integer  "sum"
     t.float    "time"
     t.integer  "select_num"
-    t.integer  "select_one"
-    t.integer  "select_two"
     t.string   "room_id"
     t.string   "game_type"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "current_num"
   end
 
   create_table "rooms", :force => true do |t|

@@ -32,6 +32,40 @@ class User < ActiveRecord::Base
     else
       return true
     end
+  end
+  def caculate_multi_game_result(id,num)
+      @games = Game.where(:room_id=>id,:current_num=>num)
+      sum = get_current_game_sum(id,num)
+      update_sum_and_score_column(@games,sum)
+      return @games
+  end
 
+  def get_current_game_sum(room_id,current_num)
+    @games = Game.where(:room_id=>room_id,:current_num=>current_num)
+    sum = 0
+    for game in @games
+      if(game.select_num).nil?
+        game.select_num = 0
+      end
+      sum = sum + game.select_num
+    end
+    return sum
+  end
+  def update_sum_and_score_column(games,sum)
+    for game in games
+      game.sum = sum
+      game.score = cacluate_score(game.select_num,sum)
+      game.save!
+    end
+  end
+  def cacluate_score(num,sum)
+    if sum < 10
+      score = 0 - num
+    elsif 10 < sum 
+      score = 30 - num
+    else
+      score = 40 -num
+    end
+    return score
   end
 end

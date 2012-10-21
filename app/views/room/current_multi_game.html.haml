@@ -32,9 +32,9 @@
                   %p 
                     请耐心等待其他人选择中，请勿关闭浏览器，刷新等………谢谢
                 %div{:class=>"modal-footer",:id=>"modal-footer"}
-                  =f.button "继续",:class=>"btn btn-success",:id=>"save_data",:type=>"button"
+                  =f.button "继续",:class=>"btn btn-success",:id=>"multi_save_data",:type=>"button"
               
-              %div{:id=>"result_modal",:class=>"modal hide fade"}
+              %div{:id=>"multi_result_modal",:class=>"modal hide fade"}
                 %div{:class=>"modal-header"}
                   %h3 游戏结果计算
                 %div{:class=>"modal-body"}
@@ -43,18 +43,37 @@
                     %a=current_user.username
                     %p 
                       所选数字:
-                      %a{:id=>"result_num"}
+                      %a{:id=>"game_user_one_num"}
                     %p 
                       所用时间:
-                      %a{:id=>"result_time"}
+                      %a{:id=>"game_user_one_time"}
                     %p
                       本局得分:
-                      %a{:id=>"result_score"}
+                      %a{:id=>"game_user_one_score"}
+                  %p
+                    玩家二
                     %p
-                      总计分数:
-                      %a= help_show_total_score(current_user)
+                      所选数字:
+                      %a{:id=>"game_user_two_num"}
+                    %p
+                      所用时间:
+                      %a{:id=>"game_user_two_num"}
+                    %p
+                      本局得分:
+                      %a{:id=>"game_user_two_score"}
+                  %p
+                    玩家三
+                    %p
+                      所选数字:
+                      %a{:id=>"game_user_three_num"}
+                    %p
+                      所用时间:
+                      %a{:id=>"game_user_three_num"}
+                    %p
+                      本局得分:
+                      %a{:id=>"game_user_three_score"}
                 %div{:class=>"modal-footer",:id=>"modal-footer"}
-                  =f.button "再接再厉",:class=>"btn btn-success",:id=>"continue_game",:type=>"button"
+                  =f.button "继续下一局",:class=>"btn btn-success",:id=>"multi_continue_game",:type=>"button"
       .span5
         .box
           %h2.title= "当前信息"
@@ -63,9 +82,12 @@
               欢迎你，
               %a= current_user.username
             %li 
-              当前局数: 10
+              当前局数:
+              %a= show_current_game_num(user_session[:game_count])
             %li 
-              剩下局数: 20
+              剩下局数: 
+              %a= help_show_multi_left_game_count(params[:roomid],user_session[:game_count])
             %li 
-              总计得分: 10000
+              总计得分: 
+              %a= help_show_total_score(current_user)
 = render "share/footer"
