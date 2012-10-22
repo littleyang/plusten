@@ -55,6 +55,9 @@ class RoomController < ApplicationController
     if user_session[:game_count].nil?
       user_session[:game_count] = 0
     end
+    if user_session[:room_id].nil?
+      user_session[:room_id] = params[:id]
+    end
   end
 
   def post_multi
