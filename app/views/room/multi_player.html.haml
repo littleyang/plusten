@@ -7,14 +7,36 @@
           %p
             %h3
               请选择游戏房间
-        %ul.unstyled
-        -if @rooms.any?
-          -for room in @rooms
-            %li= link_to "进入"+room.name,{:action=>"current_multi_game",:controller=>"room",:roomid=>room.id},:id=>"room"+room.id.to_s
-            %p
-              当前room人员:
-              %strong 
-                2/3
+        .rooms
+          %ul.unstyled
+            -if @rooms.any?
+              -for room in @rooms
+                -if room.access
+                  %li
+                    %a= link_to "进入"+room.name,{:action=>"current_multi_game",:controller=>"room",:roomid=>room.id},:id=>"room"+room.id.to_s
+                    %br
+                    %span
+                      当前房间未满
+                      %br
+                      当前room人员:
+                      %br
+                      %strong 
+                        = room.current_user_num
+                        %a /
+                        = room.usernum
+                -else
+                  %li
+                    %a="进入"+room.name
+                    %br
+                    %span
+                      当前房间已满
+                      %br
+                      当前room人员:
+                      %br
+                      %strong 
+                        = room.current_user_num
+                        %a /
+                        = room.usernum
 
       .span5
         = render "share/sidelink"

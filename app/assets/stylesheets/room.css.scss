@@ -45,3 +45,47 @@
     }
   }
 }
+.rooms {
+  background: #d9edf7;
+  padding: 10px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 0px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: 0 0px 2px rgba(0,0,0,.1);
+  box-shadow: 0 0px 2px rgba(0,0,0,.05);
+  ul{
+    margin-left: 8px;
+    font-size: 14px;
+    list-style: none;
+    li{
+      background:#f5f5f5;
+      height: auto;
+      margin-top:8px;
+      position: relative;
+      text-align: center;
+      padding: 6px;
+      display:inline-block;
+      a{
+        font-size:15px;
+        color: #9d261d;
+      }
+      p{
+        font-size: 14px;
+      }
+    }
+  }    
+  a:link {
+      text-decoration: none;
+    }
+    a:visited {
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: none;
+    }
+    a:active {
+      text-decoration: none;
+    }
+}
+

@@ -17,10 +17,11 @@ $(function(){
       url: "/g/post_multi",
       type: "POST",
       data:{select_num:select_num,thought_time:thought_time,room_id:roomid},
-      success: function(data){
-        if(data.show_result){
+      success: function(show_result){
+        $("#notice_model").hide();
+        if(show_result){
           $("#multi_result_modal").modal({
-            backgrop: true,
+            backgrop: false,
             keyboard: false,
             show: true
           });

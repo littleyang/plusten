@@ -56,11 +56,29 @@ class RoomController < ApplicationController
       user_session[:game_count] = 0
     end
     if user_session[:room_id].nil?
-      user_session[:room_id] = params[:id]
+      user_session[:room_id] = params[:roomid]
+    else
+      user_session[:room_id] = user_session[:room_id]
+    end
+    room = Room.find_by_id(params[:roomid])
+    if (((room.current_user_num)+1) <= (room.usernum))
+      room.current_user_num = room.current_user_num + 1
+      room.access = true
+    else
+      room.access = false
+    end
+    room.save!
+     if current_user.finish_game(user_session[:game_count],room.gamenum)
+      room.access = true
+      room.current_user_num = 0
+      room.save!
+      redirect_to :action=>"index",:controller=>"room"
+      flash[:notice] = "you have finish game now"
     end
   end
 
   def post_multi
+    render :nothing => true
     if request.post?
       if user_session[:game_count].nil?
         user_session[:game_count] = 1
@@ -68,19 +86,29 @@ class RoomController < ApplicationController
         user_session[:game_count]= user_session[:game_count]+1
       end
       user_game = UserGame.new
+      room = Room.find_by_id(params[:room_id])
       @game = Game.new
       @game.select_num = params[:select_num]
       @game.time = params[:thought_time]
       @game.current_num = user_session[:game_count]
-      @game.room = Room.find_by_id(params[:room_id])
+      @game.room = room
       user_game.user = current_user
       user_game.game = @game
-      if user_game.save!
+      room.current_post_num = room.current_post_num + 1
+      user_game.save!
+      if(room.current_post_num < room.usernum)
+        room.save!
+      else
+        room.current_post_num = 0
+        room.save!
+        show_result = true
+      end
+      if show_result == true
         respond_to do |format|
-          format.json { render json: @game }
-        end
+          format.json { render json: show_result }
       end
     end
+  end
   end
   def get_room_user_num
   end
@@ -91,4 +119,5 @@ class RoomController < ApplicationController
       format.json { render json: @result }
     end
   end
+
 end
