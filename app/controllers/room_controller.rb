@@ -60,20 +60,25 @@ class RoomController < ApplicationController
     else
       user_session[:room_id] = user_session[:room_id]
     end
-    room = Room.find_by_id(params[:roomid])
-    if (((room.current_user_num)+1) <= (room.usernum))
-      room.current_user_num = room.current_user_num + 1
-      room.access = true
-    else
-      room.access = false
-    end
-    room.save!
-     if current_user.finish_game(user_session[:game_count],room.gamenum)
-      room.access = true
-      room.current_user_num = 0
+    if user_session[:room_id]
+      room = Room.find_by_id(user_session[:room_id])
+      if (((room.current_user_num)+1) < (room.usernum))
+        room.current_user_num = room.current_user_num + 1
+        room.access = true
+      elsif (((room.current_user_num)+1) == (room.usernum))
+        room.current_user_num = room.current_user_num + 1
+        room.access = false
+      else
+        room.access = false
+      end
       room.save!
-      redirect_to :action=>"index",:controller=>"room"
-      flash[:notice] = "you have finish game now"
+      if current_user.finish_game(user_session[:game_count],room.gamenum)
+        room.access = true
+        room.current_user_num = 0
+        room.save!
+        redirect_to :action=>"index",:controller=>"room"
+        flash[:notice] = "you have finish game now"
+      end
     end
   end
 
