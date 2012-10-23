@@ -2,7 +2,7 @@ Pulsten::Application.routes.draw do
   # get "room/index"
 
   devise_for :users
-  match "/index"=>"room#index"
+  match "/g/index"=>"room#index"
   root :to =>"room#index"
 
   match "/g/singleuser"=>"room#single_user_room"
@@ -12,6 +12,7 @@ Pulsten::Application.routes.draw do
   match "/g/post_single"=>"room#post_single"
   match "/g/post_multi"=>"room#post_multi"
   match "/g/get_room_user_num"=>"room#get_room_user_num"
+  match "/g/had_getted_in"=>"room#have_get_in_room"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

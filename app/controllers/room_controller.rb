@@ -24,6 +24,13 @@ class RoomController < ApplicationController
     if user_session[:game_count].nil?
       user_session[:game_count] = 0
     end
+    if user_session[:room_url].nil?
+      user_session[:room_url] = request.url
+      flash.keep[:notice] = %Q[you have getted in the room,please <a href=\"#{url_for(user_session[:room_url])}\">Click Here</a> to Access The Game Room].html_safe
+    else
+      user_session[:room_url] = user_session[:room_url]
+      render :url=>user_session[:room_url]
+    end
     total_game_num = (Type.find_by_id(params[:type])).total_num
     if current_user.finish_game(user_session[:game_count],total_game_num)
       redirect_to :action=>"index",:controller=>"room"
@@ -55,30 +62,35 @@ class RoomController < ApplicationController
     if user_session[:game_count].nil?
       user_session[:game_count] = 0
     end
-    if user_session[:room_id].nil?
-      user_session[:room_id] = params[:roomid]
-    else
-      user_session[:room_id] = user_session[:room_id]
-    end
-    if user_session[:room_id]
-      room = Room.find_by_id(user_session[:room_id])
-      if (((room.current_user_num)+1) < (room.usernum))
-        room.current_user_num = room.current_user_num + 1
-        room.access = true
-      elsif (((room.current_user_num)+1) == (room.usernum))
-        room.current_user_num = room.current_user_num + 1
-        room.access = false
-      else
-        room.access = false
-      end
-      room.save!
-      if current_user.finish_game(user_session[:game_count],room.gamenum)
-        room.access = true
-        room.current_user_num = 0
+    if user_session[:room].nil?||user_session[:room_url].nil?
+      user_session[:room] = Room.find_by_id(params[:roomid])
+      user_session[:room_url] = request.url
+      if user_session[:room]&&user_session[:room_url]
+        room = Room.find_by_id(params[:roomid])
+        if (((room.current_user_num)+1) < (room.usernum))
+          room.current_user_num = room.current_user_num + 1
+          room.access = true
+        elsif (((room.current_user_num)+1) == (room.usernum))
+          room.current_user_num = room.current_user_num + 1
+          room.access = false
+        else
+          room.access = false
+        end
         room.save!
-        redirect_to :action=>"index",:controller=>"room"
-        flash[:notice] = "you have finish game now"
       end
+    else
+      user_session[:room] = user_session[:room]
+      user_session[:room_url] = user_session[:room_url]
+      #redirect_to :action=>"have_get_in_room",:controller=>"room"
+      render :url=>user_session[:room_url]
+      flash.keep[:notice] = %Q[you have getted in the room,please <a href=\"#{url_for(user_session[:room_url])}\">Click Here</a> to Access The Game Room].html_safe
+    end
+    if current_user.finish_game(user_session[:game_count],user_session[:room].gamenum)
+      room.access = true
+      room.current_user_num = 0
+      room.save!
+      redirect_to :action=>"index",:controller=>"room"
+      flash[:notice] = "you have finish game now"
     end
   end
 
@@ -123,6 +135,10 @@ class RoomController < ApplicationController
     respond_to do | format |
       format.json { render json: @result }
     end
+  end
+
+  def have_get_in_room
+    render :template=>'room/getted_in'
   end
 
 end

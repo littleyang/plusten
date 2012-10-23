@@ -8,10 +8,11 @@
         -if flash[:notice]
           .alert.alert-error
             %h5=flash[:notice]
-        %p 
-          =link_to "单人游戏",:action=>"single_user_room",:controller=>"room"
-        %p
-          =link_to "多人游戏",:action=>"multi_user_room",:controller=>"room"
+        -if user_session[:room_url].nil?
+          %p
+            =link_to "单人游戏",:action=>"single_user_room",:controller=>"room"
+          %p
+            =link_to "多人游戏",:action=>"multi_user_room",:controller=>"room"
       .span5
         = render "share/sidelink"
 = render "share/footer"

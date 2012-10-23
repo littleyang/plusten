@@ -1,0 +1,14 @@
+= render "share/header"
+.container
+  .container-fluid
+    .row-fluid
+      .span7
+        .alert.alert-info
+          %h3="提示信息"
+        -if flash[:notice]
+          .alert.alert-error
+            %h5=flash[:notice].html_safe
+      .span5
+        = render "share/sidelink"
+= render "share/footer"
+

@@ -6,10 +6,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/index">Plusten</a>
+          <a class="brand" href="index" >Plusten</a>
           <div class="container nav-collapse">
             <% if user_signed_in? %>
-            <ul class="nav pull-right">
+              <% if !user_session[:room_url].nil? %>
+                  <%= link_to "返回游戏",user_session[:room_url],:class=>"brand" %>
+                <% end %>
+              <ul class="nav pull-right">
               <li><%= link_to "注销",destroy_user_session_path, :method => :delete %></li>
               <% if current_user.admin? %>
                 <li><%= link_to "管理",:action=>"index",:controller=>"room" %></li>
