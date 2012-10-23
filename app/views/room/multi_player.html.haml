@@ -8,35 +8,22 @@
             %h3
               请选择游戏房间
         .rooms
-          %ul.unstyled
+          %ul.unstyled{:id=>"game_room"}
             -if @rooms.any?
               -for room in @rooms
-                -if room.access
-                  %li
-                    %a= link_to "进入"+room.name,{:action=>"current_multi_game",:controller=>"room",:roomid=>room.id},:id=>"room"+room.id.to_s
+                %li{:id=>room.id}
+                  %a= link_to "进入"+room.name,{:action=>"current_multi_game",:controller=>"room",:roomid=>room.id},:id=>"room"+room.id.to_s
+                  %br
+                  %span
+                    %field{:name=>"room_info"}
                     %br
-                    %span
-                      当前房间未满
-                      %br
-                      当前room人员:
-                      %br
-                      %strong 
-                        = room.current_user_num
-                        %a /
-                        = room.usernum
-                -else
-                  %li
-                    %a="进入"+room.name
+                    当前room人员:
                     %br
-                    %span
-                      当前房间已满
-                      %br
-                      当前room人员:
-                      %br
-                      %strong 
-                        = room.current_user_num
-                        %a /
-                        = room.usernum
+                    %strong 
+                      %a
+                        %field{:name=>room.id-1}
+                      %a /
+                      = room.usernum
 
       .span5
         = render "share/sidelink"

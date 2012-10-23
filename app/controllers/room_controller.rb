@@ -3,7 +3,7 @@ class RoomController < ApplicationController
   end
 
   def multi_user_room
-    @rooms = Room.order(" id DESC")
+    @rooms = Room.all
     respond_to do |format|
       format.html { render :template=>'room/multi_player' }
       format.json { render json: @rooms }
