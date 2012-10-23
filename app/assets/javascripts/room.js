@@ -42,12 +42,12 @@ $(function(){
           $('field[name='+index+']').text(room.current_user_num);
           if(room.current_user_num<room.usernum)
             {
-              $("field[name='room_info']").text("当前房间未满");
+              $("field[name='room_info']").eq(index).text("当前房间未满");
             }
           else
             {
               $('a#room'+index).removeAttr('href');
-              $("field[name='room_info']").html("当前房间已满");
+              $("field[name='room_info']").eq(index).text("当前房间已满");
             }
         });
       });
