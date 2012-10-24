@@ -27,14 +27,14 @@ class User < ActiveRecord::Base
     end
   end
   def finish_game(current,total)
-    if current < total
+    if (current < total)
       return false
     else
       return true
     end
   end
   def caculate_multi_game_result(id,num)
-      @games = Game.where(:room_id=>id,:current_num=>num)
+      @games = Game.where(:room_id=>id,:current_num=>num,:retry=>true)
       sum = get_current_game_sum(id,num)
       update_sum_and_score_column(@games,sum)
       return @games
@@ -59,9 +59,9 @@ class User < ActiveRecord::Base
     end
   end
   def cacluate_score(num,sum)
-    if sum < 10
+    if (sum < 10)
       score = 0 - num
-    elsif 10 < sum 
+    elsif( 10 < sum )
       score = 30 - num
     else
       score = 40 -num

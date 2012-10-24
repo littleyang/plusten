@@ -1,5 +1,6 @@
 class RoomController < ApplicationController
   def index
+
   end
 
   def multi_user_room
@@ -29,11 +30,13 @@ class RoomController < ApplicationController
       flash.keep[:notice] = %Q[you have getted in the room,please <a href=\"#{url_for(user_session[:room_url])}\">Click Here</a> to Access The Game Room].html_safe
     else
       user_session[:room_url] = user_session[:room_url]
-      render :url=>user_session[:room_url]
+      #render :url=>user_session[:room_url] and return
     end
     total_game_num = (Type.find_by_id(params[:type])).total_num
     if current_user.finish_game(user_session[:game_count],total_game_num)
-      redirect_to :action=>"index",:controller=>"room"
+      user_session[:game_count] = nil
+      user_session[:room_url] = nil
+      redirect_to :action=>"index",:controller=>"room" and return
       flash[:notice] = "you have finish game now"
     end
   end
@@ -81,21 +84,22 @@ class RoomController < ApplicationController
         room.save!
       end
     elsif (user_session[:game_count]<1) &&user_session[:room]&&user_session[:room_url]
-      redirect_to :action=>"have_get_in_room",:controller=>"room"
+      user_session[:game_count] = 1
+      redirect_to :action=>"have_get_in_room",:controller=>"room" and return
       flash.keep[:notice] = %Q[you have getted in the room,please <a href=\"#{url_for(user_session[:room_url])}\">Click Here</a> to Access The Game Room].html_safe
     else
       user_session[:room] = user_session[:room]
       user_session[:room_url] = user_session[:room_url]
       #redirect_to :action=>"have_get_in_room",:controller=>"room"
-      render :url=>user_session[:room_url] and return
-      flash.keep[:notice] = %Q[you have getted in the room,please <a href=\"#{url_for(user_session[:room_url])}\">Click Here</a> to Access The Game Room].html_safe
-      if current_user.finish_game(user_session[:game_count],user_session[:room].gamenum)
+      #render :url=>user_session[:room_url] and return
+      #flash.keep[:notice] = %Q[you have getted in the room,please <a href=\"#{url_for(user_session[:room_url])}\">Click Here</a> to Access The Game Room].html_safe
+      if current_user.finish_game(user_session[:game_count],(user_session[:room]).gamenum)
         room = Room.find_by_id(user_session[:room].id)
         room.access = true
         room.current_user_num = 0
         room.save!
-        redirect_to :action=>"index",:controller=>"room" and return
         flash[:notice] = "you have finish game now"
+        redirect_to :action=>"index",:controller=>"room" and return
       end
     end
   end
