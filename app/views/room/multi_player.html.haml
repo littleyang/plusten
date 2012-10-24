@@ -12,7 +12,7 @@
             -if @rooms.any?
               -for room in @rooms
                 %li{:id=>room.id}
-                  %a= link_to "进入"+room.name,{:action=>"current_multi_game",:controller=>"room",:roomid=>room.id},:id=>"room"+room.id.to_s
+                  %a= link_to "进入"+room.name,{:action=>"current_multi_game",:controller=>"room",:roomid=>room.id},:id=>"room"+(room.id-1).to_s
                   %br
                   %span
                     %field{:name=>"room_info"}
