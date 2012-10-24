@@ -11,9 +11,9 @@ Pulsten::Application.routes.draw do
   match "/g/current_multi_game"=>"room#current_multi_game"
   match "/g/post_single"=>"room#post_single"
   match "/g/post_multi"=>"room#post_multi"
-  match "/g/get_room_user_num"=>"room#get_room_user_num"
   match "/g/had_getted_in"=>"room#have_get_in_room"
-
+  match "/g/showresult"=>"room#show_multi_game_result"
+  match "/g/nextgame"=>"room#next_game"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

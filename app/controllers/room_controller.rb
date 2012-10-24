@@ -61,6 +61,8 @@ class RoomController < ApplicationController
   def current_multi_game
     if user_session[:game_count].nil?
       user_session[:game_count] = 0
+    else
+      user_session[:game_count] = user_session[:game_count]+1
     end
     if user_session[:room].nil?||user_session[:room_url].nil?
       user_session[:room] = Room.find_by_id(params[:roomid])
@@ -78,30 +80,29 @@ class RoomController < ApplicationController
         end
         room.save!
       end
+    elsif (user_session[:game_count]<1) &&user_session[:room]&&user_session[:room_url]
+      redirect_to :action=>"have_get_in_room",:controller=>"room"
+      flash.keep[:notice] = %Q[you have getted in the room,please <a href=\"#{url_for(user_session[:room_url])}\">Click Here</a> to Access The Game Room].html_safe
     else
       user_session[:room] = user_session[:room]
       user_session[:room_url] = user_session[:room_url]
       #redirect_to :action=>"have_get_in_room",:controller=>"room"
-      render :url=>user_session[:room_url]
+      render :url=>user_session[:room_url] and return
       flash.keep[:notice] = %Q[you have getted in the room,please <a href=\"#{url_for(user_session[:room_url])}\">Click Here</a> to Access The Game Room].html_safe
-    end
-    if current_user.finish_game(user_session[:game_count],user_session[:room].gamenum)
-      room.access = true
-      room.current_user_num = 0
-      room.save!
-      redirect_to :action=>"index",:controller=>"room"
-      flash[:notice] = "you have finish game now"
+      if current_user.finish_game(user_session[:game_count],user_session[:room].gamenum)
+        room = Room.find_by_id(user_session[:room].id)
+        room.access = true
+        room.current_user_num = 0
+        room.save!
+        redirect_to :action=>"index",:controller=>"room" and return
+        flash[:notice] = "you have finish game now"
+      end
     end
   end
 
   def post_multi
     render :nothing => true
     if request.post?
-      if user_session[:game_count].nil?
-        user_session[:game_count] = 1
-      else
-        user_session[:game_count]= user_session[:game_count]+1
-      end
       user_game = UserGame.new
       room = Room.find_by_id(params[:room_id])
       @game = Game.new
@@ -111,27 +112,11 @@ class RoomController < ApplicationController
       @game.room = room
       user_game.user = current_user
       user_game.game = @game
-      room.current_post_num = room.current_post_num + 1
       user_game.save!
-      if(room.current_post_num < room.usernum)
-        room.save!
-      else
-        room.current_post_num = 0
-        room.save!
-        show_result = true
-      end
-      if show_result == true
-        respond_to do |format|
-          format.json { render json: show_result }
-      end
     end
   end
-  end
-  def get_room_user_num
-  end
-
   def show_multi_game_result
-    @result = current_user.caculate_multi_game_result(roomid,user_session[:game_count])
+    @result = current_user.caculate_multi_game_result(user_session[:room].id,user_session[:game_count])
     respond_to do | format |
       format.json { render json: @result }
     end
@@ -139,6 +124,12 @@ class RoomController < ApplicationController
 
   def have_get_in_room
     render :template=>'room/getted_in'
+  end
+
+  def next_game
+    #render :nothing=>true
+    #user_session[:game_count] = user_session[:game_count] + 1
+    #puts user_session[:game_count]
   end
 
 end

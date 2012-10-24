@@ -12,6 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.all
+//= require jquery.ui.accordion
+//= require jquery.ui.autocomplete
+//= require jquery.ui.button
+//= require jquery.ui.dialog
+//= require jquery.ui.slider
+//= require jquery.ui.tabs
+//= require jquery.ui.datepicker
+//= require jquery.ui.progressbar
 //= require twitter/bootstrap
 
 $(function(){
