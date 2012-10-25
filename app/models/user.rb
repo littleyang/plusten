@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
       return true
     end
   end
+
   def caculate_multi_game_result(id,num)
       @games = Game.where(:room_id=>id,:current_num=>num,:retry=>true)
       sum = get_current_game_sum(id,num)
