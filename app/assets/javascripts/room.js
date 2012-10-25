@@ -15,14 +15,7 @@ $(function(){
     $.ajax({
       url: "/g/post_multi",
       type: "POST",
-      data:{select_num:select_num,thought_time:thought_time,room_id:roomid},
-      //success: function(){
-      //     $("#multi_result_modal").modal({
-      //     backgrop: false,
-      //     keyboard: false,
-      //     show: true
-      //    });
-      //  }
+      data:{select_num:select_num,thought_time:thought_time,room_id:roomid}
     })
   });
   function getUrlParam(name){
@@ -61,16 +54,26 @@ $(function(){
             });
         }
     });
-    setTimeout(realitime_get_room,10000);
+    setTimeout(realitime_get_room,1000);
   }
   realitime_get_room();
   $("#multi_continue_game").click(function(){
     $("#multi_result_modal").modal('hide');
-    //$.ajax({
-    //  url: "/g/nextgame",
-    //  type: "POST",
-    //  data:{test:"text"}
-    //});
     window.location.reload();
+    var comment_score = jQuery("form#comment_form input[type=checkbox]:checked").val();
+    //alert(comment_score);
+    $.ajax({
+      url: "/g/nextgame",
+      data: {comment_score:comment_score},
+      type: "POST"
+    })
+  });
+  $("#comment_current_game").click(function(){
+    $("#multi_result_modal").modal('hide');
+    $("#comment_modal").modal({
+      show: true,
+      keyboard: false,
+      backdrop: false
+    });
   });
 });

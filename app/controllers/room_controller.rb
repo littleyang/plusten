@@ -131,7 +131,16 @@ class RoomController < ApplicationController
   end
 
   def next_game
-    #render :nothing=>true
+    game = current_user.game.where(:retry=>true,:current_num=>user_session[:game_count])
+    game.comment = params[:comment_score]
+    puts params[:comment_score]
+    if game.save!
+      puts "saved"
+      puts game
+      respond_to do |format|
+        format.json { render json: game }
+      end
+    end
     #user_session[:game_count] = user_session[:game_count] + 1
     #puts user_session[:game_count]
   end

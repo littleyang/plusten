@@ -25,57 +25,78 @@
                 %div{ :class=>"controls pull-right"}
                   =f.button "提交",:class=>"btn btn-success",:id=>"multi_post_button",:type=>"button"
 
-              %div{:id=>"notice_model",:class=>"modal hide fade"}
-                %div{:class=>"modal-header"}
-                  %h3 提示信息
-                %div{:class=>"modal-body"}
-                  %p 
-                    请耐心等待其他人选择中，请勿关闭浏览器，刷新等………谢谢a
-                  %p
-                    %div{:id=>"process_bar"}
-                %div{:class=>"modal-footer",:id=>"modal-footer"}
-                  =f.button "继续",:class=>"btn btn-success",:id=>"multi_save_data",:type=>"button"
+          %div{:id=>"notice_model",:class=>"modal hide fade"}
+            %div{:class=>"modal-header"}
+              %h3 提示信息
+              %div{:class=>"modal-body"}
+                %p 
+                  请耐心等待其他人选择中，请勿关闭浏览器，刷新等………谢谢a
+                %p
+                  %div{:id=>"process_bar"}
+              %div{:class=>"modal-footer",:id=>"modal-footer"}
+                %button{:class=>"btn btn-success",:id=>"multi_save_data",:type=>"button"}继续
               
-              %div{:id=>"multi_result_modal",:class=>"modal hide fade"}
-                %div{:class=>"modal-header"}
-                  %h3 游戏结果计算
-                %div{:class=>"modal-body"}
-                  %p
-                    当前用户:
-                    %a=current_user.username
-                    %p 
-                      所选数字:
-                      %a{:id=>"game_user_one_num"}
-                    %p 
-                      所用时间:
-                      %a{:id=>"game_user_one_time"}
-                    %p
-                      本局得分:
-                      %a{:id=>"game_user_one_score"}
-                  %p
-                    玩家二
-                    %p
-                      所选数字:
-                      %a{:id=>"game_user_two_num"}
-                    %p
-                      所用时间:
-                      %a{:id=>"game_user_two_num"}
-                    %p
-                      本局得分:
-                      %a{:id=>"game_user_two_score"}
-                  %p
-                    玩家三
-                    %p
-                      所选数字:
-                      %a{:id=>"game_user_three_num"}
-                    %p
-                      所用时间:
-                      %a{:id=>"game_user_three_num"}
-                    %p
-                      本局得分:
-                      %a{:id=>"game_user_three_score"}
-                %div{:class=>"modal-footer",:id=>"modal-footer"}
-                  =f.button "继续下一局",:class=>"btn btn-success",:id=>"multi_continue_game",:type=>"button"
+          %div{:id=>"multi_result_modal",:class=>"modal hide fade",:data_show=>false}
+            %div{:class=>"modal-header"}
+              %h3 游戏结果计算
+              %div{:class=>"modal-body"}
+                %table.table
+                  %thead
+                    %tr
+                      %th 玩家
+                      %th 所选数字
+                      %th 所用时间
+                      %th 本局得分
+                      %th 总分
+                  %tbody
+                    %tr
+                      %td{:id=>"game_user_one_username"}
+                        = current_user.username
+                      %td{:id=>"game_user_one_num"}
+                      %td{:id=>"game_user_one_time"}
+                      %td{:id=>"game_user_one_score"}
+                      %td{:id=>"game_user_one_total_score"}
+                    %tr
+                      %td{:id=>"game_user_two_username"}
+                        玩家二
+                      %td{:id=>"game_user_two_num"}
+                      %td{:id=>"game_user_two_time"}
+                      %td{:id=>"game_user_two_score"}
+                      %td{:id=>"game_user_two_total_score"}
+                    %tr
+                      %td{:id=>"game_user_three_username"}
+                        玩家三
+                      %td{:id=>"game_user_three_num"}
+                      %td{:id=>"game_user_three_time"}
+                      %td{:id=>"game_user_three_score"}
+                      %td{:id=>"game_user_three_total_score"}
+                %form{:id=>"comment_form",:class=>"form-horizontal"}
+                  %fieldset
+                    %legend
+                      给本次游戏给个你认为满意的评分
+                    %div{:class=>"control-group"}
+                      %div{:class=>"control-label",:style=>"width:auto;margin-left:40px;"}
+                        %input{:type=>"checkbox",:id=>"score_one",:value=>"1",:class=>"checkbox inline"}
+                        1
+                        %input{:type=>"checkbox",:id=>"score_tow",:value=>"2",:class=>"checkbox inline"}
+                        2
+                        %input{:type=>"checkbox",:id=>"score_three",:value=>"3",:class=>"checkbox inline"}
+                        3
+                        %input{:type=>"checkbox",:id=>"score_four",:value=>"4",:class=>"checkbox inline"}
+                        4
+                        %input{:type=>"checkbox",:id=>"score_five",:value=>"5",:class=>"checkbox inline"}
+                        5
+                        %input{:type=>"checkbox",:id=>"score_six",:value=>"6",:class=>"checkbox inline"}
+                        6
+                        %input{:type=>"checkbox",:id=>"score_seven",:value=>"7",:class=>"checkbox inline"}
+                        7
+                        %input{:type=>"checkbox",:id=>"score_eight",:value=>"8",:class=>"checkbox inline"}
+                        8
+                        %input{:type=>"checkbox",:id=>"socre_nine",:value=>"9",:class=>"checkbox inline"}
+                        9
+              %div{:class=>"modal-footer",:id=>"modal-footer"}
+                %button{:class=>"btn btn-success",:id=>"multi_continue_game",:type=>"button"}继续下一局
+ 
       .span5
         .box
           %h2.title= "当前信息"

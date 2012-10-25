@@ -14,6 +14,7 @@ Pulsten::Application.routes.draw do
   match "/g/had_getted_in"=>"room#have_get_in_room"
   match "/g/showresult"=>"room#show_multi_game_result"
   match "/g/nextgame"=>"room#next_game"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
