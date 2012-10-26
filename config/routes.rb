@@ -1,4 +1,6 @@
 Pulsten::Application.routes.draw do
+  get "admin/index"
+
   # get "room/index"
 
   devise_for :users
