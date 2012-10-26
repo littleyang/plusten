@@ -136,7 +136,6 @@ class RoomController < ApplicationController
       game = current_user.game.where(:retry=>true,:current_num=>user_session[:game_count]).first
       game.comment = params[:comment_score]
       if game.save!
-        puts "saved!"
         respond_to do |format|
           format.json { render json: true}
         end
