@@ -113,8 +113,8 @@ class RoomController < ApplicationController
       @game.select_num = params[:select_num]
       @game.time = params[:thought_time]
       @game.current_num = user_session[:game_count]
+      @game.game_type = session[:game_type]
       @game.room = room
-      @game.find_id = current_user.id
       user_game.user = current_user
       user_game.game = @game
       user_game.save!
@@ -133,9 +133,10 @@ class RoomController < ApplicationController
 
   def go_on_next_game
     if request.post?
-      puts params[:comment_score]
+      game = current_user.game.where(:retry=>true,:current_num=>user_session[:game_count]).first
       game.comment = params[:comment_score]
       if game.save!
+        puts "saved!"
         respond_to do |format|
           format.json { render json: true}
         end

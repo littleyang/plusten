@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   attr_accessible :login
 
   has_many :user_game
-  has_many :game,:through=>:user_game
+  has_many :game,:through=>:user_game,:readonly=>false
   has_many :single_game
 
   def self.find_first_by_auth_conditions(warden_conditions)

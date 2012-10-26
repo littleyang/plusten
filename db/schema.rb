@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121025074055) do
+ActiveRecord::Schema.define(:version => 20121026013930) do
 
   create_table "games", :force => true do |t|
     t.integer  "score"
@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(:version => 20121025074055) do
     t.integer  "current_num"
     t.boolean  "retry",       :default => true
     t.integer  "comment"
-    t.string   "find_id"
   end
 
   create_table "rooms", :force => true do |t|
